@@ -13,12 +13,6 @@ config :chat, Chat.Endpoint,
   cache_static_manifest: "priv/static/manifest.json",
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
-config :chat Chat.Repo,
-  adapter: Ecto.Adaptors.Postgres,
-  url: System.get_env("DATABASE_URL"),
-  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
-  ssl: true
-
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key
@@ -35,6 +29,12 @@ config :chat Chat.Repo,
 
 # Do not print debug messages in production
 config :logger, level: :info
+
+config :chat Chat.Repo,
+  adapter: Ecto.Adaptors.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: true
 
 # ## Using releases
 #
