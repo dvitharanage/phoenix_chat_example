@@ -8,7 +8,16 @@ use Mix.Config
 # meaningful, we use this information when generating URLs.
 config :chat, Chat.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com"]
+  url: [host: "https://ancient-beach-62096.herokuapp.com", scheme: "https", port: 443],
+  force_ssl: [rewrite_on: [ :x_forwarded_protocol]],
+  cache_static_manifest: "priv/static/manifest.json",
+  secret_key_base: System.get_env("SECRET_KEY_BASE")
+
+config :chat Chat.Repo,
+  adapter: Ecto.Adaptors.Postgres,
+  url: System.get_env("DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+  ssl: true
 
 # ## SSL Support
 #
@@ -42,4 +51,3 @@ config :logger, level: :info
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-import_config "prod.secret.exs"

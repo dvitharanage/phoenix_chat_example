@@ -3,7 +3,8 @@ defmodule Chat.UserSocket do
 
   channel "rooms:*", Chat.RoomChannel
 
-  transport :websocket, Phoenix.Transports.WebSocket
+  transport :websocket, Phoenix.Transports.WebSocket,
+    timeout: 45_000
   transport :longpoll, Phoenix.Transports.LongPoll
 
   def connect(_params, socket) do
